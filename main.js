@@ -17,23 +17,22 @@ function assignLikeAction(){
 
 function handleLike(event){
   mimicServerCall('url')
-  .then(event => changeHeart(event))
+  .then(resp => changeHeart(resp, event))
   .catch(error => showError(error));
 }  
 
 function showError(error){
-  modal.innerText = error;
   modal.classList.remove('hidden');
-  window.setTimeout(hideErrorBanner, 5000);
+  modal.innerText = error;
+  setTimeout(hideErrorBanner, 5000);
 }
 
-function changeHeart(event){
+function changeHeart(resp, event){
   let likeBtn = event.target;
-  if (likeBtn.innerHTML === EMPTY_HEART) {
+  if (likeBtn.innerText === EMPTY_HEART) {
     likeBtn.setAttribute('class', 'activated-heart');
     likeBtn.innerHTML = FULL_HEART;
   } else {
-    // (likeBtn.innerHTML === FULL_HEART)
     likeBtn.removeAttribute('class', 'activated-heart');
     likeBtn.innerHTML = EMPTY_HEART;
   }
