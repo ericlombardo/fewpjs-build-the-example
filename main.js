@@ -16,7 +16,7 @@ function assignLikeAction(){
 }
 
 function handleLike(event){
-  mimicServerCall('asdd')
+  mimicServerCall('url')
   .then(event => changeHeart(event))
   .catch(error => showError(error));
 }  
