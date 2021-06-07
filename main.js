@@ -1,12 +1,42 @@
 // Defining text characters for the empty and full hearts for you to use later.
 const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
-
+let modal = document.getElementById('modal');
 // Your JavaScript code goes here!
+let likeBtns
+function hideErrorBanner(){
+  modal.setAttribute('class', 'hidden');
+}
 
+function assignLikeAction(){
+  likeBtns = Array.from(document.querySelectorAll('li.like span.like-glyph'));
+  likeBtns.forEach(btn => {
+    btn.addEventListener('click', handleLike);
+  });
+}
 
+function handleLike(event){
+  mimicServerCall()
+  .then(changeHeart(event))
+  .catch(error => showError(error));
+}  
 
+function showError(error){
+  modal.innerText = error;
+  modal.classList.remove('hidden');
+  window.setTimeout(hideErrorBanner, 5000);
+}
 
+function changeHeart(event){
+  let likeBtn = event.target;
+  if (likeBtn.innerHTML === EMPTY_HEART) {
+    likeBtn.setAttribute('class', 'activated-heart');
+    likeBtn.innerHTML = FULL_HEART;
+  } else if (likeBtn.innerHTML === FULL_HEART) {
+    likeBtn.removeAttribute('class', 'activated-heart');
+    likeBtn.innerHTML = EMPTY_HEART;
+  }
+}
 //------------------------------------------------------------------------------
 // Don't change the code below: this function mocks the server response
 //------------------------------------------------------------------------------
@@ -23,3 +53,7 @@ function mimicServerCall(url="http://mimicServer.example.com", config={}) {
     }, 300);
   });
 }
+
+
+hideErrorBanner();
+assignLikeAction();
