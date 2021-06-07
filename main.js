@@ -16,8 +16,8 @@ function assignLikeAction(){
 }
 
 function handleLike(event){
-  mimicServerCall()
-  .then(changeHeart(event))
+  mimicServerCall('asdd')
+  .then(event => changeHeart(event))
   .catch(error => showError(error));
 }  
 
@@ -32,7 +32,8 @@ function changeHeart(event){
   if (likeBtn.innerHTML === EMPTY_HEART) {
     likeBtn.setAttribute('class', 'activated-heart');
     likeBtn.innerHTML = FULL_HEART;
-  } else if (likeBtn.innerHTML === FULL_HEART) {
+  } else {
+    // (likeBtn.innerHTML === FULL_HEART)
     likeBtn.removeAttribute('class', 'activated-heart');
     likeBtn.innerHTML = EMPTY_HEART;
   }
